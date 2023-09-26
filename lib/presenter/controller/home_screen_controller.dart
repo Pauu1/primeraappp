@@ -1,0 +1,47 @@
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:primeraappp/presenter/bindings/app_bindings.dart';
+import 'package:primeraappp/presenter/views/about_page.dart';
+import 'package:primeraappp/presenter/views/profile_page.dart';
+import 'package:primeraappp/presenter/views/search_page.dart';
+
+class HomeController extends GetxController {
+  static HomeController get to => Get.find();
+  var currentIndex = 0.obs;
+
+  final pages = <String>[
+    '/Search',
+    '/Profile',
+    '/About',
+  ];
+
+  void changePage(int index) {
+    currentIndex.value = index;
+    Get.toNamed(pages[index], id: 1);
+  }
+
+  Route? onGenerateRoute(RouteSettings settings) {
+    if (settings.name == '/Search') {
+      return GetPageRoute(
+        settings: settings,
+        page: () => SearchPage(),
+        binding: SearchBinding(),
+      );
+    }
+    if (settings.name == '/Profile') {
+      return GetPageRoute(
+        settings: settings,
+        page: () => ProfilePage(),
+        binding: ProfileBinding(),
+      );
+    }
+    if (settings.name == '/About') {
+      return GetPageRoute(
+        settings: settings,
+        page: () => HelpPage(),
+        binding: HelpBinding(),
+      );
+    }
+    return null;
+  }
+}
